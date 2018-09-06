@@ -11,7 +11,8 @@ class App extends React.Component {
       inputArr: [89, 30, 25, 32, 72, 70, 51, 42, 25, 24, 53, 55, 78, 50, 13, 40, 48, 32, 26, 2, 14, 33, 45, 72, 56, 44, 21, 88, 27, 68, 15, 62, 93, 98, 73, 28, 16, 46, 87, 28, 65, 38, 67, 16, 85, 63, 23, 69, 64, 91, 9, 70, 81, 27, 97, 82, 6, 88, 3, 7, 46, 13, 11, 64, 76, 31, 26, 38, 28, 13, 17, 69, 90, 1, 6, 7, 64, 43, 9, 73, 80, 98, 46, 27, 22, 87, 49, 83, 6, 39, 42, 51, 54, 84, 34, 53, 78, 40, 14, 5],
       sortMeArr: [89, 30, 25, 32, 72, 70, 51, 42, 25, 24, 53, 55, 78, 50, 13, 40, 48, 32, 26, 2, 14, 33, 45, 72, 56, 44, 21, 88, 27, 68, 15, 62, 93, 98, 73, 28, 16, 46, 87, 28, 65, 38, 67, 16, 85, 63, 23, 69, 64, 91, 9, 70, 81, 27, 97, 82, 6, 88, 3, 7, 46, 13, 11, 64, 76, 31, 26, 38, 28, 13, 17, 69, 90, 1, 6, 7, 64, 43, 9, 73, 80, 98, 46, 27, 22, 87, 49, 83, 6, 39, 42, 51, 54, 84, 34, 53, 78, 40, 14, 5],
       linearCounter: 0,
-      inputArr2: [89,30,25,32,72,70,51,42,25,24,53,55,78,50,13,40,48,32,26,2,14,33,45,72,56,44,21,88,27,68,15,62,93,98,73,28,16,46,87,28,65,38,67,16,85,63,23,69,64,91,9,70,81,27,97,82,6,88,3,7,46,13,11,64,76,31,26,38,28,13,17,69,90,1,6,7,64,43,9,73,80,98,46,27,22,87,49,83,6,39,42,51,54,84,34,53,78,40,14,5]
+      inputArr2: [89,30,25,32,72,70,51,42,25,24,53,55,78,50,13,40,48,32,26,2,14,33,45,72,56,44,21,88,27,68,15,62,93,98,73,28,16,46,87,28,65,38,67,16,85,63,23,69,64,91,9,70,81,27,97,82,6,88,3,7,46,13,11,64,76,31,26,38,28,13,17,69,90,1,6,7,64,43,9,73,80,98,46,27,22,87,49,83,6,39,42,51,54,84,34,53,78,40,14,5],
+      inputArr3: [89,30,25,32,72,70,51,42,25,24,53,55,78,50,13,40,48,32,26,2,14,33,45,72,56,44,21,88,27,68,15,62,93,98,73,28,16,46,87,28,65,38,67,16,85,63,23,69,64,91,9,70,81,27,97,82,6,88,3,7,46,13,11,64,76,31,26,38,28,13,17,69,90,1,6,7,64,43,9,73,80,98,46,27,22,87,49,83,6,39,42,51,54,84,34,53,78,40,14,5]
     };
   }
 
@@ -44,6 +45,46 @@ class App extends React.Component {
     console.log('Quicksort product');
     console.log(array);
     return array;
+  };
+
+  merge(left, right, array) {
+      let leftIndex = 0;
+      let rightIndex = 0;
+      let outputIndex = 0;
+      while (leftIndex < left.length && rightIndex < right.length) {
+          if (left[leftIndex] < right[rightIndex]) {
+              array[outputIndex++] = left[leftIndex++];
+          }
+          else {
+              array[outputIndex++] = right[rightIndex++];
+          }
+      }
+
+      for (let i=leftIndex; i<left.length; i++) {
+          array[outputIndex++] = left[i];
+      }
+
+      for (let i=rightIndex; i<right.length; i++) {
+          array[outputIndex++] = right[i];
+      }
+      return array;
+  };
+
+  mergeSort(array) {
+      if (array.length <= 1) {
+          return array;
+      }
+
+      const middle = Math.floor(array.length / 2);
+      let left = array.slice(0, middle);
+      let right = array.slice(middle, array.length);
+
+      left = this.mergeSort(left);
+      right = this.mergeSort(right);
+
+      let merge = this.merge(left, right, array);
+      console.log(merge);
+      return merge;
   };
 
   onSubmit(e) {
@@ -111,10 +152,11 @@ class App extends React.Component {
               Input:
               <input type="text" onChange={(e) => {
                 const val = e.target.value;
-                this.setState({ input: val });
-                this.indexOf(this.state.inputArr, val);
-                this.binarySearch(this.state.sortMeArr.sort(), val);
-                this.quickSort(this.state.inputArr2);
+                // this.setState({ input: val });
+                // this.indexOf(this.state.inputArr, val);
+                // this.binarySearch(this.state.sortMeArr.sort(), val);
+                // this.quickSort(this.state.inputArr2);
+                this.mergeSort(this.state.inputArr3)
               }}name="name" />
             </label>
             <input type="submit" value="Submit" />
