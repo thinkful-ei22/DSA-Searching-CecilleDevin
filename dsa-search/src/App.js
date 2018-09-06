@@ -87,7 +87,7 @@ class App extends React.Component {
       let merge = this.merge(left, right, array);
       console.log(merge);
       return merge;
-  };
+  }
 
   // [28, 41, 19, 36, 12, 4, 18, 22, 35, 43, 9]
   //start: 4 - index 5
@@ -120,6 +120,15 @@ class App extends React.Component {
     }
     console.log(mommaArray);
     return mommaArray;
+  }
+
+  randomizeArray(array){
+    for(let i = 0; i < array.length; i++){
+      let idx1 = Math.floor(Math.random()*array.length);
+      let idx2 = Math.floor(Math.random()*array.length);
+      this.swap(array, idx1, idx2);
+    }
+    return array;
   }
 
   onSubmit(e) {
@@ -193,6 +202,7 @@ class App extends React.Component {
                 // this.quickSort(this.state.inputArr2);
                 // this.mergeSort(this.state.inputArr3);
                 this.bucketSort(this.state.inputArr4, 4, 43);
+                console.log(this.randomizeArray(this.state.inputArr4));
               }}name="name" />
             </label>
             <input type="submit" value="Submit" />
