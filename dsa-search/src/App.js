@@ -35,7 +35,7 @@ class App extends React.Component {
       }
       this.swap(array, end-1, j);
       return j;
-  };
+  }
 
   quickSort(array, start=0, end=array.length) {
     if (start >= end) {
@@ -47,7 +47,7 @@ class App extends React.Component {
     console.log('Quicksort product');
     console.log(array);
     return array;
-  };
+  }
 
   merge(left, right, array) {
       let leftIndex = 0;
@@ -70,7 +70,7 @@ class App extends React.Component {
           array[outputIndex++] = right[i];
       }
       return array;
-  };
+  }
 
   mergeSort(array) {
       if (array.length <= 1) {
@@ -100,17 +100,22 @@ class App extends React.Component {
     let start = s;
     let end = e;
     let bucketArray = [];
-    for(let i = 0; i*10 + start <= end; i+=10) {
+
+    for(let i = 0; i*10 + start <= end; i++) {
+      console.log('heyo');
       bucketArray[i] = [];
     }
+    console.log(bucketArray);
     for(let i = 0; i < array.length; i++) {
       let val = array[i];
       let bucketIndex = Math.floor((val - start) / 10);
-        bucketArray[bucketIndex].push(val);
+      // console.log(val);
+      // console.log(bucketArray[bucketIndex]);
+      bucketArray[bucketIndex].push(val);
     }
     let mommaArray = [];
     for(let i = 0; i < bucketArray.length; i++) {
-      bucketArray[i].sort();
+      bucketArray[i].sort((a,b)=>a-b);
       bucketArray[i].forEach(item => mommaArray.push(item));
     }
     console.log(mommaArray);
@@ -187,7 +192,7 @@ class App extends React.Component {
                 // this.binarySearch(this.state.sortMeArr.sort(), val);
                 // this.quickSort(this.state.inputArr2);
                 // this.mergeSort(this.state.inputArr3);
-                this.bucketSort(this.state.inputArr4);
+                this.bucketSort(this.state.inputArr4, 4, 43);
               }}name="name" />
             </label>
             <input type="submit" value="Submit" />
