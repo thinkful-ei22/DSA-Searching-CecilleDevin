@@ -12,9 +12,11 @@ class App extends React.Component {
       sortMeArr: [89, 30, 25, 32, 72, 70, 51, 42, 25, 24, 53, 55, 78, 50, 13, 40, 48, 32, 26, 2, 14, 33, 45, 72, 56, 44, 21, 88, 27, 68, 15, 62, 93, 98, 73, 28, 16, 46, 87, 28, 65, 38, 67, 16, 85, 63, 23, 69, 64, 91, 9, 70, 81, 27, 97, 82, 6, 88, 3, 7, 46, 13, 11, 64, 76, 31, 26, 38, 28, 13, 17, 69, 90, 1, 6, 7, 64, 43, 9, 73, 80, 98, 46, 27, 22, 87, 49, 83, 6, 39, 42, 51, 54, 84, 34, 53, 78, 40, 14, 5],
       linearCounter: 0,
       inputArr2: [89,30,25,32,72,70,51,42,25,24,53,55,78,50,13,40,48,32,26,2,14,33,45,72,56,44,21,88,27,68,15,62,93,98,73,28,16,46,87,28,65,38,67,16,85,63,23,69,64,91,9,70,81,27,97,82,6,88,3,7,46,13,11,64,76,31,26,38,28,13,17,69,90,1,6,7,64,43,9,73,80,98,46,27,22,87,49,83,6,39,42,51,54,84,34,53,78,40,14,5],
-      inputArr3: [89,30,25,32,72,70,51,42,25,24,53,55,78,50,13,40,48,32,26,2,14,33,45,72,56,44,21,88,27,68,15,62,93,98,73,28,16,46,87,28,65,38,67,16,85,63,23,69,64,91,9,70,81,27,97,82,6,88,3,7,46,13,11,64,76,31,26,38,28,13,17,69,90,1,6,7,64,43,9,73,80,98,46,27,22,87,49,83,6,39,42,51,54,84,34,53,78,40,14,5]
+      inputArr3: [89,30,25,32,72,70,51,42,25,24,53,55,78,50,13,40,48,32,26,2,14,33,45,72,56,44,21,88,27,68,15,62,93,98,73,28,16,46,87,28,65,38,67,16,85,63,23,69,64,91,9,70,81,27,97,82,6,88,3,7,46,13,11,64,76,31,26,38,28,13,17,69,90,1,6,7,64,43,9,73,80,98,46,27,22,87,49,83,6,39,42,51,54,84,34,53,78,40,14,5],
+      inputArr4: [28, 41, 19, 36, 12, 4, 18, 22, 35, 43, 9]
     };
   }
+
 
   swap(array, i, j) {
     let temp = array[i];
@@ -87,6 +89,34 @@ class App extends React.Component {
       return merge;
   };
 
+  // [28, 41, 19, 36, 12, 4, 18, 22, 35, 43, 9]
+  //start: 4 - index 5
+  //end: 43, 9
+
+  //first loop
+  //i starts at 4 + 14 + ...
+
+  bucketSort(array, s, e) {
+    let start = s;
+    let end = e;
+    let bucketArray = [];
+    for(let i = 0; i*10 + start <= end; i+=10) {
+      bucketArray[i] = [];
+    }
+    for(let i = 0; i < array.length; i++) {
+      let val = array[i];
+      let bucketIndex = Math.floor((val - start) / 10);
+        bucketArray[bucketIndex].push(val);
+    }
+    let mommaArray = [];
+    for(let i = 0; i < bucketArray.length; i++) {
+      bucketArray[i].sort();
+      bucketArray[i].forEach(item => mommaArray.push(item));
+    }
+    console.log(mommaArray);
+    return mommaArray;
+  }
+
   onSubmit(e) {
     this.setState({
       input: e
@@ -156,7 +186,8 @@ class App extends React.Component {
                 // this.indexOf(this.state.inputArr, val);
                 // this.binarySearch(this.state.sortMeArr.sort(), val);
                 // this.quickSort(this.state.inputArr2);
-                this.mergeSort(this.state.inputArr3)
+                // this.mergeSort(this.state.inputArr3);
+                this.bucketSort(this.state.inputArr4);
               }}name="name" />
             </label>
             <input type="submit" value="Submit" />
